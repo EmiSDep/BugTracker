@@ -1,8 +1,7 @@
 package com.example.BugTracker.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Developer {
@@ -14,12 +13,21 @@ public class Developer {
     private String lastName;
     private String email;
 
+    @OneToMany(mappedBy = "developer")
+    // @JoinColumn(name = "developer_id", referencedColumnName = "id")
+    private List<Bug> bugs;
+
+
+    @OneToOne
+    private Link link;
+
     public Developer(){}
 
-    public Developer(String firstName, String lastName, String email) {
+    public Developer(String firstName, String lastName, String email, Link link) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.link = link;
     }
 
     public Long getId() {
